@@ -1,0 +1,214 @@
+:root {
+    --primary-color: #1e3d59;
+    --secondary-color: #ff6e40;
+    --accent-color: #ffc13b;
+    --background-color: #f5f0e1;
+    --door-closed: linear-gradient(135deg, #1e3d59, #17314a);
+    --door-open: linear-gradient(135deg, #ff6e40, #ff5722);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        transform: scale(0);
+    }
+
+    to {
+        transform: scale(1);
+    }
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: var(--background-color);
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-image: radial-gradient(circle at 25px 25px, rgba(255,255,255,0.2) 2%, transparent 2%), radial-gradient(circle at 75px 75px, rgba(255,255,255,0.2) 2%, transparent 2%);
+    background-size: 100px 100px;
+}
+
+h1 {
+    color: var(--primary-color);
+    font-size: 2em;
+    text-align: center;
+    margin-bottom: 40px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+    animation: float 3s ease-in-out infinite;
+}
+
+.container {
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    max-width: 600px;
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+    box-sizing: border-box; /* Zapewnia, ¿e padding nie bêdzie powiêkszaæ szerokoœci */
+}
+
+.snow {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* Formularz */
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Label */
+label {
+    font-size: 18px;
+    color: var(--primary-color);
+    margin-bottom: 8px;
+}
+
+/* Pole wyboru (select) */
+select {
+    width: 100%;
+    max-width: 300px;
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid var(--primary-color);
+    border-radius: 6px;
+    margin-bottom: 20px;
+    background-color: #f9f9f9;
+    color: var(--primary-color);
+    transition: border-color 0.3s ease;
+}
+
+    select:focus {
+        border-color: var(--secondary-color);
+        outline: none;
+    }
+
+/* Pole tekstowe (input) */
+input[type="text"] {
+    width: 100%;
+    max-width: 300px;
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid var(--primary-color);
+    border-radius: 6px;
+    margin-bottom: 20px;
+    background-color: #f9f9f9;
+    color: var(--primary-color);
+    transition: border-color 0.3s ease;
+}
+
+    input[type="text"]:focus {
+        border-color: var(--secondary-color);
+        outline: none;
+    }
+
+/* Przycisk */
+button {
+    padding: 12px 24px;
+    font-size: 16px;
+    background-color: var(--secondary-color);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+    button:hover {
+        background-color: var(--primary-color);
+        transform: scale(1.05);
+    }
+
+    button:focus {
+        outline: none;
+    }
+
+/* Wiadomoœci wynikowe */
+p.correct {
+    color: var(--accent-color);
+    font-size: 18px;
+    font-weight: bold;
+}
+
+p.incorrect {
+    color: #dc3545;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/* Stopka */
+footer {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.footer-bottom {
+    font-size: 14px;
+    color: #777;
+}
+
+/* Ulepszona responsywnoœæ */
+@media (max-width: 768px) {
+    body {
+        padding: 10px; /* Zmniejszamy ogólne marginesy na urz¹dzeniach mobilnych */
+    }
+
+    h1 {
+        font-size: 2em; /* Zmniejszamy rozmiar tekstu na urz¹dzeniach mobilnych */
+        margin-bottom: 20px;
+    }
+
+    .container {
+        padding: 20px; /* Dopasowujemy padding dla mniejszych ekranów */
+        width: 90%; /* Kontener zajmuje 90% szerokoœci ekranu */
+        max-width: none; /* Usuwamy maksymaln¹ szerokoœæ, by kontener dostosowa³ siê do ekranu */
+        box-shadow: 0 6px 20px rgba(0,0,0,0.1); /* Dostosowujemy cieñ kontenera */
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.6em; /* Zmniejszamy czcionkê jeszcze bardziej dla bardzo ma³ych ekranów */
+    }
+
+    .container {
+        padding: 15px; /* Mniejszy padding na jeszcze mniejszych ekranach */
+    }
+}
