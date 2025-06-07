@@ -1,4 +1,5 @@
-﻿<?php
+﻿<!--Copyright by Juliusz Sagan. The right to copy is strictly prohibited! It is forbidden to use resources inappropriately!-->
+<?php
 session_start();
 require_once 'api/config.php';
 date_default_timezone_set('Europe/Warsaw');
@@ -366,3 +367,4 @@ $isOpened = $stmt->fetch() !== false;
 
 </body>
 </html>
+<!--Copyright by Juliusz Sagan. The right to copy is strictly prohibited! It is forbidden to use resources inappropriately!-->
