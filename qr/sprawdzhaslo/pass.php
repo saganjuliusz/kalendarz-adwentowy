@@ -7,6 +7,6 @@ $passwords = [
     5 => "elfy",
     6 => "nartach",
     7 => "tradycja",
-    8 => "Prezent"
+    8 => "123"
 ];
 ?>

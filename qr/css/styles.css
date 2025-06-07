@@ -1,81 +1,238 @@
-:root {
-    --primary-color: #1e3d59;
-    --secondary-color: #ff6e40;
-    --accent-color: #ffc13b;
-    --background-color: #f5f0e1;
-    --door-closed: linear-gradient(135deg, #1e3d59, #17314a);
-    --door-open: linear-gradient(135deg, #ff6e40, #ff5722);
+﻿:root {
+    /* Zmieniam kolory na bardziej radosne i dziecięce */
+    --primary-color: #ff4757; /* Żywy czerwony zamiast ciemnego niebieskiego */
+    --secondary-color: #3742fa; /* Jasny niebieski */
+    --accent-color: #ffa502; /* Pomarańczowy */
+    --background-color: #a8e6cf; /* Delikatny zielony jak trawa */
+    --pink-color: #ff6b9d; /* Różowy dla dodatkowej radości */
+    --yellow-color: #feca57; /* Słoneczny żółty */
+    --door-closed: linear-gradient(135deg, #ff4757, #c44569);
+    --door-open: linear-gradient(135deg, #3742fa, #2f3542);
+    /* Zmienne dla responsywności - ułatwią zarządzanie rozmiarami na różnych urządzeniach */
+    --container-padding-desktop: 30px;
+    --container-padding-tablet: 20px;
+    --container-padding-mobile: 15px;
+    --font-size-desktop: 18px;
+    --font-size-mobile: 16px;
+    --input-height-desktop: 50px;
+    --input-height-mobile: 44px; /* Optymalna wysokość dla dotyku na mobilnych */
+}
+
+/* Dodaję nową animację skakania dla elementów dziecięcych */
+@keyframes bounce {
+    0%, 20%, 60%, 100% {
+        transform: translateY(0);
+    }
+
+    40% {
+        transform: translateY(-10px); /* Zmniejszam wysokość skoku na mobilnych */
+    }
+
+    80% {
+        transform: translateY(-3px);
+    }
+}
+
+/* Animacja kolorowego migania dla przycisków - zoptymalizowana dla wydajności */
+@keyframes rainbow {
+    0% {
+        background-color: var(--primary-color);
+    }
+
+    16% {
+        background-color: var(--secondary-color);
+    }
+
+    33% {
+        background-color: var(--accent-color);
+    }
+
+    50% {
+        background-color: var(--pink-color);
+    }
+
+    66% {
+        background-color: var(--yellow-color);
+    }
+
+    83% {
+        background-color: #55a3ff;
+    }
+
+    100% {
+        background-color: var(--primary-color);
+    }
 }
 
 @keyframes fadeIn {
     from {
         opacity: 0;
+        transform: translateY(20px); /* Dodaję subtelny ruch podczas pojawiania się */
     }
 
     to {
         opacity: 1;
+        transform: translateY(0);
     }
 }
 
 @keyframes scaleIn {
     from {
-        transform: scale(0);
+        transform: scale(0.8); /* Zmieniam z 0 na 0.8 dla płynniejszego efektu */
+        opacity: 0;
     }
 
     to {
         transform: scale(1);
+        opacity: 1;
     }
 }
 
+/* Zoptymalizowana animacja float - mniej intensywna na urządzeniach mobilnych */
 @keyframes float {
     0% {
-        transform: translateY(0px);
+        transform: translateY(0px) rotate(0deg);
+    }
+
+    25% {
+        transform: translateY(-5px) rotate(0.5deg); /* Zmniejszam rotację dla lepszej wydajności */
     }
 
     50% {
-        transform: translateY(-10px);
+        transform: translateY(-8px) rotate(0deg);
+    }
+
+    75% {
+        transform: translateY(-5px) rotate(-0.5deg);
     }
 
     100% {
-        transform: translateY(0px);
+        transform: translateY(0px) rotate(0deg);
+    }
+}
+
+/* Zoptymalizowana animacja konfetti - działa płynniej na słabszych urządzeniach */
+@keyframes confetti {
+    0% {
+        transform: translateY(-50px) rotate(0deg);
+        opacity: 0.8;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(100vh) rotate(180deg); /* Zmniejszam rotację z 360 na 180 stopni */
+        opacity: 0;
+    }
+}
+
+/* Nowa animacja pulsowania zoptymalizowana pod mobilne */
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 8px 25px rgba(0,0,0,0.1), 0 0 15px rgba(255, 107, 157, 0.2);
+    }
+
+    50% {
+        transform: scale(1.01); /* Zmniejszam skalowanie z 1.02 na 1.01 */
+        box-shadow: 0 12px 30px rgba(0,0,0,0.12), 0 0 20px rgba(255, 107, 157, 0.25);
     }
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Comic Sans MS', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background: var(--background-color);
     margin: 0;
-    padding: 20px;
+    padding: 10px; /* Zmniejszam domyślny padding dla mobilnych */
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-image: radial-gradient(circle at 25px 25px, rgba(255,255,255,0.2) 2%, transparent 2%), radial-gradient(circle at 75px 75px, rgba(255,255,255,0.2) 2%, transparent 2%);
-    background-size: 100px 100px;
+    /* Uproszczony wzór tła - lepiej działa na mobilnych urządzeniach */
+    background-image: radial-gradient(circle at 20% 20%, var(--pink-color) 2%, transparent 2%), radial-gradient(circle at 60% 30%, var(--yellow-color) 1.5%, transparent 1.5%), radial-gradient(circle at 80% 60%, var(--secondary-color) 2%, transparent 2%), radial-gradient(circle at 30% 80%, var(--accent-color) 2.5%, transparent 2.5%);
+    background-size: 120px 120px, 80px 80px, 100px 100px, 140px 140px;
+    position: relative;
+    overflow-x: hidden;
+    /* Przewijanie na iOS będzie płynniejsze */
+    -webkit-overflow-scrolling: touch;
 }
+
+    /* Uproszczone konfetti dla lepszej wydajności na urządzeniach mobilnych */
+    body::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 0;
+        background-image: radial-gradient(1.5px 1.5px, var(--primary-color) 50%, transparent 50%), radial-gradient(1.5px 1.5px, var(--secondary-color) 50%, transparent 50%);
+        background-size: 40px 40px, 60px 60px;
+        animation: confetti 12s linear infinite; /* Wydłużam czas animacji dla płynności */
+        opacity: 0.6; /* Zmniejszam przezroczystość dla lepszej czytelności */
+    }
 
 h1 {
     color: var(--primary-color);
-    font-size: 2em;
+    font-size: clamp(1.8rem, 4vw, 2.5rem); /* Responsywny rozmiar czcionki */
     text-align: center;
-    margin-bottom: 40px;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
-    animation: float 3s ease-in-out infinite;
+    margin-bottom: clamp(20px, 5vw, 40px); /* Responsywny margin */
+    /* Zoptymalizowany cień tekstowy */
+    text-shadow: 2px 2px 0px var(--secondary-color), 4px 4px 0px var(--accent-color), 6px 6px 10px rgba(0,0,0,0.2);
+    animation: bounce 3s ease-in-out infinite; /* Wydłużam czas animacji */
+    font-weight: bold;
+    letter-spacing: 1px;
+    line-height: 1.2; /* Lepsze odstępy między liniami na mobilnych */
 }
 
+    /* Zoptymalizowane emotikony w tytule */
+    h1::after {
+        content: '🎈🎉';
+        display: block;
+        font-size: clamp(0.8rem, 2vw, 1.2rem);
+        margin-top: 8px;
+        animation: float 4s ease-in-out infinite;
+    }
+
 .container {
-    background: white;
-    padding: 30px;
+    background: linear-gradient(145deg, #ffffff, #f8fbff);
+    padding: var(--container-padding-mobile); /* Używam zmiennej CSS */
     border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-    max-width: 600px;
-    width: 100%;
+    /* Uproszczona ramka dla lepszej wydajności */
+    border: 3px solid var(--primary-color);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1), 0 0 15px rgba(255, 107, 157, 0.15);
+    /* Kontener zajmuje niemal całą szerokość na mobilnych */
+    width: calc(100% - 20px);
+    max-width: 500px; /* Zmniejszam maksymalną szerokość */
     margin: 0 auto;
     text-align: center;
     position: relative;
     z-index: 2;
-    box-sizing: border-box; /* Zapewnia, �e padding nie b�dzie powi�ksza� szeroko�ci */
+    box-sizing: border-box;
+    animation: pulse 6s ease-in-out infinite; /* Wydłużam animację */
 }
+
+    /* Zoptymalizowane dekoracje kontenera */
+    .container::before {
+        content: '🎈';
+        position: absolute;
+        top: -15px;
+        left: 15px;
+        font-size: clamp(20px, 4vw, 25px);
+        animation: float 4s ease-in-out infinite;
+    }
+
+    .container::after {
+        content: '🎁';
+        position: absolute;
+        top: -15px;
+        right: 15px;
+        font-size: clamp(20px, 4vw, 25px);
+        animation: float 4s ease-in-out infinite 1.5s;
+    }
 
 .snow {
     position: fixed;
@@ -87,128 +244,484 @@ h1 {
     z-index: 1;
 }
 
-/* Formularz */
+/* Formularz zoptymalizowany pod mobilne */
 form {
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 15px; /* Dodaję consistentne odstępy */
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
 }
 
-/* Label */
+/* Kontener dla każdego pola - NOWY ELEMENT */
+.field-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+/* Label zoptymalizowany pod mobilne - POPRAWIONY */
 label {
-    font-size: 18px;
+    font-size: clamp(16px, 3vw, 18px);
     color: var(--primary-color);
     margin-bottom: 8px;
-}
-
-/* Pole wyboru (select) */
-select {
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
     width: 100%;
-    max-width: 300px;
-    padding: 10px;
-    font-size: 16px;
-    border: 2px solid var(--primary-color);
-    border-radius: 6px;
-    margin-bottom: 20px;
-    background-color: #f9f9f9;
-    color: var(--primary-color);
-    transition: border-color 0.3s ease;
+    text-align: center; /* WYRÓWNANIE DO ŚRODKA */
+    display: block;
 }
 
-    select:focus {
-        border-color: var(--secondary-color);
-        outline: none;
-    }
-
-/* Pole tekstowe (input) */
+/* NAPRAWIONE ZUNIFIKOWANE STYLE DLA WSZYSTKICH PÓL WEJŚCIOWYCH - GŁÓWNA POPRAWKA! */
+select,
 input[type="text"] {
     width: 100%;
-    max-width: 300px;
-    padding: 10px;
-    font-size: 16px;
-    border: 2px solid var(--primary-color);
-    border-radius: 6px;
-    margin-bottom: 20px;
-    background-color: #f9f9f9;
-    color: var(--primary-color);
-    transition: border-color 0.3s ease;
+    max-width: 100%;
+    height: var(--input-height-mobile); /* JEDNAKOWA WYSOKOŚĆ */
+    padding: 12px 15px; /* JEDNAKOWY PADDING */
+    font-size: var(--font-size-mobile); /* JEDNAKOWY ROZMIAR CZCIONKI */
+    border: 2px solid var(--primary-color); /* JEDNAKOWA RAMKA */
+    border-radius: 12px; /* JEDNAKOWE ZAOKRĄGLENIE */
+    margin-bottom: 0;
+    /* KLUCZOWA POPRAWKA: SOLIDNY KOLOR TŁA JAKO PODSTAWA - TO ROZWIĄZUJE PROBLEM BIAŁEJ LISTY */
+    background-color: #ffffff !important; /* SOLIDNY BIAŁY KOLOR - ZAWSZE WIDOCZNY */
+    background-image: linear-gradient(145deg, #ffffff, #f8f9fa); /* GRADIENT JAKO DODATEK */
+    color: var(--primary-color); /* JEDNAKOWY KOLOR TEKSTU */
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    font-family: 'Comic Sans MS', sans-serif; /* JEDNAKOWA CZCIONKA */
+    box-sizing: border-box; /* JEDNAKOWY MODEL PUDEŁKOWY */
+    /* Ważne dla mobilnych - większy obszar kliknięcia */
+    -webkit-appearance: none;
+    appearance: none;
+    cursor: pointer;
+    /* Lepsze wsparcie dla touch */
+    touch-action: manipulation;
+    text-align: center; /* TEKST WYŚRODKOWANY W POLACH */
 }
 
-    input[type="text"]:focus {
-        border-color: var(--secondary-color);
-        outline: none;
+/* SPECJALNE POPRAWKI DLA SELECT - WIELOWARSTWOWE ZABEZPIECZENIE PRZED BIAŁĄ LISTĄ */
+select {
+    /* GŁÓWNE ZABEZPIECZENIE: PODWÓJNE TŁO - SOLIDNY KOLOR + GRADIENT */
+    background-color: #ffffff !important; /* TO JEST KLUCZ - ZAWSZE BĘDZIE BIAŁE TŁO */
+    background-image:
+    /* DODAJĘ NIESTANDARDOWĄ STRZAŁKĘ JAKO SVG */
+    url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23ff4757' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e"),
+    /* GRADIENT JAKO DRUGA WARSTWA */
+    linear-gradient(145deg, #ffffff, #f8f9fa);
+    background-position: right 12px center, 0 0; /* POZYCJA STRZAŁKI I GRADIENTU */
+    background-repeat: no-repeat, no-repeat;
+    background-size: 16px, 100% 100%;
+    padding-right: 40px; /* MIEJSCE NA STRZAŁKĘ */
+    padding-left: 15px;
+    /* DODATKOWE ZABEZPIECZENIA KOMPATYBILNOŚCI */
+    -webkit-background-clip: padding-box; /* SAFARI FIX */
+    background-clip: padding-box;
+    -moz-appearance: none; /* FIREFOX FIX */
+    text-indent: 0.01px; /* FIREFOX TEXT FIX */
+    text-overflow: ''; /* FIREFOX OVERFLOW FIX */
+}
+
+/* FALLBACK DLA PRZEGLĄDAREK KTÓRE NIE OBSŁUGUJĄ GRADIENTÓW W SELECT */
+@supports not (background-image: linear-gradient(145deg, #ffffff, #f8f9fa)) {
+    select {
+        background-color: #f8f9fa; /* JASNOSZARY JAKO ALTERNATYWA */
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23ff4757' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+    }
+}
+
+/* SPECJALNE REGUŁY DLA EKRANÓW RETINA I HIGH-DPI */
+@media screen and (-webkit-min-device-pixel-ratio: 2) {
+    select {
+        background-color: #ffffff;
+        background-image:
+        /* GRUBSZA STRZAŁKA NA EKRANACH RETINA */
+        url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23ff4757' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M6 8l4 4 4-4'/%3e%3c/svg%3e"), linear-gradient(145deg, #ffffff, #f8f9fa);
+    }
+}
+
+/* SPECJALNE POPRAWKI DLA SAFARI NA iOS - ROZWIĄZUJE PROBLEMY Z TOUCH */
+@supports (-webkit-touch-callout: none) {
+    select {
+        -webkit-appearance: none;
+        -webkit-border-radius: 12px;
+        background-color: #ffffff;
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23ff4757' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+        background-position: right 12px center;
+        background-repeat: no-repeat;
+        background-size: 16px;
+        /* SUBTELNY CIEŃ WEWNĘTRZNY DLA LEPSZEGO WYGLĄDU */
+        box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+    }
+    /* ZAPOBIEGA AUTOMATYCZNEMU ZOOMOWANIU NA iOS PRZY FOCUS */
+    select, input[type="text"] {
+        font-size: max(16px, 1em); /* MINIMALNY ROZMIAR 16PX ZAPOBIEGA ZOOMOWI */
+    }
+}
+
+/* DEDYKOWANE POPRAWKI DLA FIREFOX */
+@-moz-document url-prefix() {
+    select {
+        background-color: #ffffff;
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23ff4757' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+        background-position: calc(100% - 12px) center; /* PRECYZYJNA POZYCJA STRZAŁKI */
+        background-repeat: no-repeat;
+        background-size: 16px;
+        padding-right: 40px;
+    }
+}
+
+/* ZUNIFIKOWANE STANY FOCUS I HOVER - POPRAWIONE */
+select:focus,
+input[type="text"]:focus {
+    border-color: var(--secondary-color);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(55, 66, 250, 0.2); /* WIĘKSZY FOCUS RING DLA ACCESSIBILITY */
+    background-color: #ffffff !important; /* UTRZYMUJEMY BIAŁE TŁO PRZY FOCUS */
+    transform: none; /* BRAK SKALOWANIA NA FOCUS DLA MOBILNYCH */
+}
+
+select:hover,
+input[type="text"]:hover {
+    border-color: var(--pink-color);
+    box-shadow: 0 3px 10px rgba(255, 107, 157, 0.15);
+    background-color: #ffffff !important; /* UTRZYMUJEMY BIAŁE TŁO PRZY HOVER */
+}
+
+/* KLASA AWARYJNA - UŻYJ JEŚLI NADAL WYSTĘPUJĄ PROBLEMY */
+.select-fallback {
+    background-color: #f8f9fa !important;
+    background-image: none !important;
+    border: 3px solid var(--primary-color) !important;
+    position: relative;
+}
+
+    .select-fallback::after {
+        content: '▼';
+        position: absolute;
+        right: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--primary-color);
+        pointer-events: none;
+        font-size: 14px;
     }
 
-/* Przycisk */
+/* Przycisk zoptymalizowany pod mobilne - bardzo ważne! */
 button {
-    padding: 12px 24px;
-    font-size: 16px;
-    background-color: var(--secondary-color);
+    width: 100%;
+    max-width: 280px;
+    min-height: 50px; /* Minimalny rozmiar dla wygodnego dotyku */
+    padding: 15px 25px;
+    font-size: clamp(16px, 3vw, 18px);
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
     color: white;
     border: none;
-    border-radius: 6px;
+    border-radius: 25px;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    font-family: 'Comic Sans MS', sans-serif;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    position: relative;
+    overflow: hidden;
+    /* Kluczowe dla mobilnych */
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent; /* Usuwa niebieski highlight na iOS */
+    user-select: none; /* Zapobiega zaznaczaniu tekstu */
 }
+
+    /* Efekt błyszczenia zoptymalizowany */
+    button::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+        transition: left 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    button:hover::before,
+    button:focus::before {
+        left: 100%;
+    }
 
     button:hover {
-        background-color: var(--primary-color);
-        transform: scale(1.05);
+        background: linear-gradient(45deg, var(--pink-color), var(--accent-color));
+        transform: translateY(-2px); /* Zmieniam z scale i rotate na translateY */
+        box-shadow: 0 6px 20px rgba(0,0,0,0.2);
     }
 
-    button:focus {
-        outline: none;
+/* Specjalne efekty dla urządzeń dotykowych */
+@media (hover: none) and (pointer: coarse) {
+    button:hover {
+        transform: none; /* Wyłączam hover efekty na urządzeniach dotykowych */
     }
 
-/* Wiadomo�ci wynikowe */
-p.correct {
-    color: var(--accent-color);
-    font-size: 18px;
-    font-weight: bold;
+    button:active {
+        transform: scale(0.98);
+        background: linear-gradient(45deg, var(--pink-color), var(--accent-color));
+    }
 }
+
+button:active {
+    transform: translateY(1px) scale(0.98);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+button:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(255, 107, 157, 0.4);
+}
+
+/* Wiadomości wynikowe zoptymalizowane */
+p.correct {
+    color: #27ae60;
+    font-size: clamp(18px, 4vw, 20px);
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+    animation: bounce 1s ease-in-out;
+    margin: 15px 0;
+    padding: 10px;
+    border-radius: 10px;
+    background: rgba(39, 174, 96, 0.1);
+    text-align: center; /* WYŚRODKOWANY TEKST */
+}
+
+    p.correct::before {
+        content: '🎉 ';
+    }
+
+    p.correct::after {
+        content: ' 🌟';
+    }
 
 p.incorrect {
-    color: #dc3545;
-    font-size: 18px;
+    color: #e74c3c;
+    font-size: clamp(18px, 4vw, 20px);
     font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+    animation: bounce 1s ease-in-out;
+    margin: 15px 0;
+    padding: 10px;
+    border-radius: 10px;
+    background: rgba(231, 76, 60, 0.1);
+    text-align: center; /* WYŚRODKOWANY TEKST */
 }
 
-/* Stopka */
+    p.incorrect::before {
+        content: '🤔 ';
+    }
+
+    p.incorrect::after {
+        content: ' 🔄';
+    }
+
+/* Stopka zoptymalizowana */
 footer {
     text-align: center;
-    margin-top: 40px;
+    margin-top: 30px;
+    color: var(--primary-color);
+    padding: 0 10px;
 }
 
 .footer-bottom {
-    font-size: 14px;
-    color: #777;
+    font-size: clamp(14px, 3vw, 16px);
+    color: var(--secondary-color);
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+    line-height: 1.4;
 }
 
-/* Ulepszona responsywno�� */
-@media (max-width: 768px) {
+/* Media queries - progressive enhancement */
+
+/* Tablety w orientacji pionowej */
+@media (min-width: 481px) and (max-width: 768px) {
+    .container {
+        padding: var(--container-padding-tablet);
+        max-width: 450px;
+    }
+
+    select, input[type="text"] {
+        height: calc(var(--input-height-mobile) + 4px);
+        font-size: 17px;
+    }
+
+    button {
+        min-height: 54px;
+        max-width: 320px;
+    }
+}
+
+/* Urządzenia desktop */
+@media (min-width: 769px) {
     body {
-        padding: 10px; /* Zmniejszamy og�lne marginesy na urz�dzeniach mobilnych */
-    }
-
-    h1 {
-        font-size: 2em; /* Zmniejszamy rozmiar tekstu na urz�dzeniach mobilnych */
-        margin-bottom: 20px;
+        padding: 20px;
     }
 
     .container {
-        padding: 20px; /* Dopasowujemy padding dla mniejszych ekran�w */
-        width: 90%; /* Kontener zajmuje 90% szeroko�ci ekranu */
-        max-width: none; /* Usuwamy maksymaln� szeroko��, by kontener dostosowa� si� do ekranu */
-        box-shadow: 0 6px 20px rgba(0,0,0,0.1); /* Dostosowujemy cie� kontenera */
+        padding: var(--container-padding-desktop);
+        max-width: 600px;
+    }
+
+    select, input[type="text"] {
+        height: var(--input-height-desktop);
+        font-size: var(--font-size-desktop);
+        max-width: 350px;
+    }
+
+    button {
+        min-height: 56px;
+        max-width: 300px;
+    }
+
+        /* Przywracam hover efekty na desktop */
+        button:hover {
+            transform: scale(1.05) translateY(-2px);
+            animation: rainbow 2s infinite;
+        }
+
+    select:hover, input[type="text"]:hover {
+        transform: translateY(-1px);
     }
 }
 
-@media (max-width: 480px) {
-    h1 {
-        font-size: 1.6em; /* Zmniejszamy czcionk� jeszcze bardziej dla bardzo ma�ych ekran�w */
+/* Bardzo małe ekrany */
+@media (max-width: 360px) {
+    body {
+        padding: 5px;
     }
 
     .container {
-        padding: 15px; /* Mniejszy padding na jeszcze mniejszych ekranach */
+        width: calc(100% - 10px);
+        padding: 12px;
+        border-radius: 15px;
     }
+
+    h1 {
+        margin-bottom: 15px;
+    }
+
+    select, input[type="text"] {
+        height: 42px;
+        font-size: 15px;
+        padding: 10px 12px;
+    }
+
+    button {
+        min-height: 48px;
+        font-size: 15px;
+        padding: 12px 20px;
+    }
+}
+
+/* Optymalizacje dla iOS Safari */
+@supports (-webkit-touch-callout: none) {
+    select, input[type="text"], button {
+        -webkit-appearance: none;
+        -webkit-border-radius: 12px;
+    }
+    /* Zapobiega zoomowaniu na iOS przy focus */
+    select, input[type="text"] {
+        font-size: max(16px, 1em);
+    }
+}
+
+/* Redukcja animacji dla użytkowników preferujących mniejszy ruch */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    body::before {
+        animation: none;
+    }
+
+    .container {
+        animation: none;
+    }
+
+    h1 {
+        animation: none;
+    }
+}
+
+/* Tryb wysokiego kontrastu */
+@media (prefers-contrast: high) {
+    :root {
+        --primary-color: #000000;
+        --secondary-color: #0000ff;
+        --accent-color: #ff6600;
+        --background-color: #ffffff;
+    }
+
+    .container {
+        border: 3px solid #000000;
+        background: #ffffff;
+    }
+
+    button {
+        background: #000000;
+        color: #ffffff;
+        border: 2px solid #ffffff;
+    }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --background-color: #2c3e50;
+    }
+
+    body {
+        background-color: var(--background-color);
+    }
+
+    .container {
+        background: linear-gradient(145deg, #34495e, #2c3e50);
+        color: #ffffff;
+    }
+
+    select, input[type="text"] {
+        background: linear-gradient(145deg, #34495e, #2c3e50);
+        color: #ffffff;
+    }
+}
+
+/* Dodatkowe klasy utility do użycia w HTML */
+.wiggle {
+    animation: wiggle 0.5s ease-in-out infinite;
+}
+
+@keyframes wiggle {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    25% {
+        transform: rotate(1deg);
+    }
+
+    75% {
+        transform: rotate(-1deg);
+    }
+
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+/* Klasa do wyłączania animacji na żądanie */
+.no-animation * {
+    animation: none !important;
+    transition: none !important;
 }
